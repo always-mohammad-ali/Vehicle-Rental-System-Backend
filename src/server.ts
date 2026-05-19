@@ -1,11 +1,10 @@
 import app from "./app";
-import dotenv from "dotenv"
+import config from "./config/config";
 
-dotenv.config();
 
 function main(){
     
-   const port = process.env.PORT || 5000;
+   const port = config.port || 5000;
     try{
 
         console.log("Database is connected");
