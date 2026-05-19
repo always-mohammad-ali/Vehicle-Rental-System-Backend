@@ -18,7 +18,7 @@ const signup = async(req : Request, res : Response) =>{
 
     }catch(error){
         const errorMessage = (error instanceof Error) ? error.message : "Failed to create user"
-        res.status(401).json({
+        res.status(400).json({
             success: false,
             message : errorMessage
         })

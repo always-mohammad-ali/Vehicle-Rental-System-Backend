@@ -9,7 +9,7 @@ const signin = async(req : Request, res : Response) =>{
 
         const result = await signinService.signin(user);
         
-        res.status(201).json({
+        res.status(200).json({
             success : true,
             message : "user sign in successfully done",
             data : result
