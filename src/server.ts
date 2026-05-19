@@ -1,13 +1,16 @@
 import app from "./app";
 import config from "./config/config";
+import { initDatabase } from "./config/database";
 
 
-function main(){
+async function main(){
     
    const port = config.port || 5000;
     try{
 
-        console.log("Database is connected");
+        await initDatabase();
+
+        console.log("Database is initialized successfully and connected");
         app.listen(port, () =>{
         console.log(`Server is running on http://localhost:${port}`);
       })
