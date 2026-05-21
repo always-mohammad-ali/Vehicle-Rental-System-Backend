@@ -21,6 +21,32 @@ const getAllVehicles = async(req : Request, res : Response) =>{
      }
 }
 
+const getSingleVehicle = async(req : Request, res : Response) =>{
+     try{
+
+        const { vehicleId } = req.params;
+
+        const result = await vehicleService.getSingleVehicle(vehicleId as string);
+
+        res.status(200).json({
+            success : true,
+            message : "get single vehicle by public successfully",
+            data : result
+        })
+
+       // console.log(result);
+
+     }catch(error){
+        res.status(404).json({
+            success : false,
+            message : "get single vehicle by public failed",
+            details : error
+        })
+     }
+}
+
+
+
 const createVehicle = async(req : Request, res : Response) =>{
 
     try{
@@ -49,5 +75,6 @@ const createVehicle = async(req : Request, res : Response) =>{
 
 export const vehicleController = {
     getAllVehicles,
+    getSingleVehicle,
     createVehicle
 }

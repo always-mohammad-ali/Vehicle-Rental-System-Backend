@@ -11,5 +11,8 @@ router.get("/", vehicleController.getAllVehicles)
 router.post("/", authMiddleware, isAdmin, vehicleController.createVehicle)
 
 
+router.get("/:vehicleId", vehicleController.getSingleVehicle)
+
+
 
 export const vehicleRouter = router;
