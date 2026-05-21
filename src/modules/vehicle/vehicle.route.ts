@@ -5,6 +5,11 @@ import { vehicleController } from "./vehicle.controller";
 
 const router = Router();
 
+router.get("/", vehicleController.getAllVehicles)
+
+
 router.post("/", authMiddleware, isAdmin, vehicleController.createVehicle)
+
+
 
 export const vehicleRouter = router;

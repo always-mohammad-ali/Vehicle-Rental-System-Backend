@@ -1,6 +1,26 @@
 import { Request, Response } from "express";
 import { vehicleService } from "./vehicle.service";
 
+const getAllVehicles = async(req : Request, res : Response) =>{
+     try{
+
+        const result = await vehicleService.getAllVehicles();
+
+        res.status(200).json({
+            success : true,
+            message : "get all vehicles by public successfully",
+            data : result
+        })
+
+     }catch(error){
+        res.status(404).json({
+            success : false,
+            message : "get all vehicles by public failed",
+            details : error
+        })
+     }
+}
+
 const createVehicle = async(req : Request, res : Response) =>{
 
     try{
@@ -25,6 +45,9 @@ const createVehicle = async(req : Request, res : Response) =>{
       
 }
 
+
+
 export const vehicleController = {
+    getAllVehicles,
     createVehicle
 }
