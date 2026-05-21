@@ -5,13 +5,17 @@ import { vehicleController } from "./vehicle.controller";
 
 const router = Router();
 
+//get all vehicle data
 router.get("/", vehicleController.getAllVehicles)
 
-
+//create vehicle post
 router.post("/", authMiddleware, isAdmin, vehicleController.createVehicle)
 
-
+//get specific vehicle data
 router.get("/:vehicleId", vehicleController.getSingleVehicle)
+
+//update specific vehicle data
+router.put("/:vehicleId", authMiddleware, isAdmin, vehicleController.updateVehicle)
 
 
 

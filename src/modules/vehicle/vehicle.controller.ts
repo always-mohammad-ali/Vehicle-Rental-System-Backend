@@ -45,6 +45,29 @@ const getSingleVehicle = async(req : Request, res : Response) =>{
      }
 }
 
+const updateVehicle = async(req : Request, res : Response) =>{
+    try{
+
+        const { vehicleId } = req.params;
+
+        const result = await vehicleService.updateVehicle(vehicleId as string, req.body);
+        console.log(result);
+        res.status(200).json({
+            success : true,
+            message : "update single vehicle by admin done",
+            data : result
+        })
+
+
+    }catch(error){
+        res.status(404).json({
+            success : false,
+            message : "update single vehicle by admin failed",
+            details : error
+        })
+     }
+}
+
 
 
 const createVehicle = async(req : Request, res : Response) =>{
@@ -76,5 +99,6 @@ const createVehicle = async(req : Request, res : Response) =>{
 export const vehicleController = {
     getAllVehicles,
     getSingleVehicle,
+    updateVehicle,
     createVehicle
 }
