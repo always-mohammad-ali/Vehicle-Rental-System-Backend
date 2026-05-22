@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { vehicleService } from "./vehicle.service";
+import { JwtPayload } from "jsonwebtoken";
 
 const getAllVehicles = async(req : Request, res : Response) =>{
      try{
@@ -94,11 +95,35 @@ const createVehicle = async(req : Request, res : Response) =>{
       
 }
 
+const deleteVehicle = async(req : Request, res : Response) =>{
+      try{
+
+        const { vehicleId } = req.params;
+
+        const result = await vehicleService.deleteVehicle(vehicleId as string)
+
+        res.status(200).json({
+            success : true,
+            message : "delete vehicle data successfully",
+            data : result
+        })
+
+      }catch(error){
+        res.status(401).json({
+            success : false,
+            message : "failed to delete vehicle data",
+            details : error
+
+        })
+      }
+}
+
 
 
 export const vehicleController = {
     getAllVehicles,
     getSingleVehicle,
     updateVehicle,
-    createVehicle
+    createVehicle,
+    deleteVehicle
 }

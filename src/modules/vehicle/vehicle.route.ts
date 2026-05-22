@@ -17,6 +17,9 @@ router.get("/:vehicleId", vehicleController.getSingleVehicle)
 //update specific vehicle data
 router.put("/:vehicleId", authMiddleware, isAdmin, vehicleController.updateVehicle)
 
+//delete specific vehicle data
+router.delete("/:vehicleId", authMiddleware, isAdmin, vehicleController.deleteVehicle)
+
 
 
 export const vehicleRouter = router;
