@@ -39,7 +39,25 @@ const updateUser = async(userId : string, payload : Record<string, any>) =>{
             return result.rows[0]
 }
 
+const deleteUser = async(userId : string) =>{
+      
+     const checkActiveStatus = await pool.query(`
+          SELECT * FROM bookings WHERE customer_id=$1 AND status = 'active'
+          `, [userId])
+
+     if(checkActiveStatus.rows.length > 0){
+          throw new Error("you cant delete that user with active status in booking")
+     }
+
+     const result = await pool.query(`
+          DELETE FROM users WHERE id = $1 RETURNING *
+          `, [userId])
+
+     return result.rows[0]
+}
+
 export const userService = {
     getAllUser,
-    updateUser
+    updateUser,
+    deleteUser
 }

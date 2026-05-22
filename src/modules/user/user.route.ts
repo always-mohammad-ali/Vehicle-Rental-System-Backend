@@ -10,5 +10,7 @@ router.get("/", authMiddleware, isAdmin, userController.getAllUser);
 
 router.put("/:userId", authMiddleware, isAdminOrSelf, userController.updateUser);
 
+router.delete("/:userId", authMiddleware, isAdmin, userController.deleteUser);
+
 
 export const userRouter = router;
