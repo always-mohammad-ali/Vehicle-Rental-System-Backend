@@ -120,9 +120,64 @@ const getAllBooking = async(payload : Record<string, any>) =>{
         }))
 }
 
+const updateBooking = async(bookingId : string, payload : Record<string, any>, status: Record<string, any>) =>{
+      const existingBooking = await pool.query(`
+          SELECT * FROM bookings WHERE id = $1
+        `, [bookingId])
+      
+      const currentBooking = existingBooking.rows[0];
+
+      if(!currentBooking){
+        throw new Error("booking not found using that booking id")
+      }
+      
+      if(payload.role === "customer"){
+        if(currentBooking.customer_id !== payload.id){
+            throw new Error("customer id doesn't match with your logged in id, so go to the hell.")
+        }
+
+        const result = await pool.query(`
+            UPDATE bookings SET status = 'cancelled' WHERE id = $1 RETURNING *
+            `, [bookingId])
+
+        await pool.query(`
+            UPDATE vehicles SET availability_status = 'available' WHERE id = $1
+            `, [result.rows[0].vehicle_id])
+
+            
+            return result.rows[0]
+      }
+
+
+      if(payload.role === "admin"){
+        if(status.status === "returned"){
+            const result = await pool.query(`
+                UPDATE bookings SET status = 'returned' WHERE id = $1 RETURNING *
+                `,[bookingId])
+
+            await pool.query(`
+                UPDATE vehicles SET availability_status = 'available' WHERE id = $1
+                `, [result.rows[0].vehicle_id])
+
+                 return {
+                  ...result.rows[0],
+                  vehicle : {
+                    availability_status : "available"
+                  }
+               }
+        }
+
+       
+      }
+     
+
+
+}
+
  
 
 export const bookingService = {
     createBooking,
-    getAllBooking
+    getAllBooking,
+    updateBooking
 }
