@@ -11,9 +11,12 @@ async function main(){
         await initDatabase();
 
         console.log("Database is initialized successfully and connected");
-        app.listen(port, () =>{
+       /* app.listen(port, () =>{
         console.log(`Server is running on http://localhost:${port}`);
-      })
+        })
+        */
+       
+      
     }catch(error){
        console.log("Failed to start server", error);
        process.exit(1)
@@ -22,3 +25,5 @@ async function main(){
 }
 
 main();
+
+export default app;
