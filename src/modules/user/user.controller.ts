@@ -21,6 +21,36 @@ const getAllUser = async(req : Request, res : Response) =>{
      }
 }
 
+const updateUser = async(req : Request, res : Response) =>{
+     try{
+       const { userId } = req.params;
+       const currentRole = req.user?.role;
+       
+       if(currentRole !== 'admin' && req.body.role){
+        delete req.body.role
+        
+       }
+       
+       const result = await userService.updateUser(userId as string, req.body);
+
+       res.status(200).json({
+        success : true,
+        message : "successfully update user data by admin or customer",
+        data : result
+       })
+
+     }catch(error){
+        res.status(401).json({
+            success : false,
+            message : "failed to update user data by admin or customer",
+            details : error
+        })
+     }
+}
+
+
+
 export const userController = {
-    getAllUser
+    getAllUser,
+    updateUser
 }

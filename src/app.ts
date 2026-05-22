@@ -3,6 +3,7 @@ import { signupRouter } from "./modules/signUpUser/signup.route";
 import { signinRouter } from "./modules/signInUser/signin.route";
 import { vehicleRouter } from "./modules/vehicle/vehicle.route";
 import { userRouter } from "./modules/user/user.route";
+import { bookingRouter } from "./modules/booking/booking.route";
 
 
 const app = express();
@@ -16,6 +17,8 @@ app.use("/api/v1/auth/signin", signinRouter)
 app.use("/api/v1/vehicles", vehicleRouter)
 
 app.use("/api/v1/users", userRouter)
+
+app.use("/api/v1/bookings", bookingRouter)
 
 app.get("/", (req : Request, res : Response) =>{
     res.send("hello world!")

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import config from "../../config/config";
+import config from "../config/config";
 
 export const authMiddleware = async(req : Request, res : Response, next : NextFunction) =>{
     try{
