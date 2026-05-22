@@ -7,5 +7,7 @@ const router = Router();
 
 router.post("/", authMiddleware, bookingController.createBooking)
 
+router.get("/", authMiddleware, bookingController.getAllBooking)
+
 
 export const bookingRouter = router;
